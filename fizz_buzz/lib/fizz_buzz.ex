@@ -1,12 +1,13 @@
 defmodule FizzBuzz do
+  #ler o conteúdo do arquivo, e passar para a função
   def build(file_name) do
     file_name
     |> File.read()
     |> handle_file_read()
   end
 
-  #pattern matching direto no argumento da função; praticamente uma sobrecarga de funções
-  defp handle_file_read({:ok, result}), do
+  #usa o pattern matching para tratar o resultado da leitura do arquivo direto no argumento da função; praticamente uma sobrecarga de funções
+  defp handle_file_read({:ok, result}) do
     result =
       result
       |> String.split(",")
@@ -18,13 +19,14 @@ defmodule FizzBuzz do
   defp handle_file_read({:error, reason}), do: {:error, "Error reading the file: #{reason}"}
 
   defp convert_and_evaluate_numbers(elem) do
+    #converte a string em número e aplica a lógica do fizzbuzz
     elem
     |> String.to_integer()
     |> evaluate_numbers()
     end
-
+#avalia se os números se enquadram no que foi especificado, caso contrário, devolve o número
     defp evaluate_numbers(number) when rem(number, 3) == 0 and rem(number, 5) == 0, do: :fizzbuzz
     defp evaluate_numbers(number) when rem(number, 3) == 0, do: :fizz
-    defp evaluate_numbers(number) when rem(number, 5) == 0, do: :fizz
+    defp evaluate_numbers(number) when rem(number, 5) == 0, do: :buzz
     defp evaluate_numbers(number), do: number
  end
